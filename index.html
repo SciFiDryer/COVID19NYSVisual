@@ -15,6 +15,7 @@
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+var nycCases = getNYCCases();
 var i;
 for (i = 0; i < counties.features.length; i++)
 {
@@ -56,7 +57,7 @@ function generateProperties(countyName)
 			}
 			if (isBigApple(countyName))
 			{
-				popupContent = "NYC: " + countycases.counties[i].cases + " cases";
+				popupContent = "NYC: " + nycCases + " cases";
 			}
 			if (countycases.counties[i].cases > 0 && countycases.counties[i].cases <= 5)
 			{
@@ -94,6 +95,17 @@ function generateProperties(countyName)
 		
 	}
 	return {"color" : color, "popupContent": popupContent};
+}
+function getNYCCases()
+{
+	for (i = 0; i < countycases.counties.length; i++)
+	{
+		if (countycases.counties[i].name == "New York City")
+		{
+			return countycases.counties[i].cases;
+		}
+	}
+	return 0;
 }
 function isBigApple(countyName)
 {
