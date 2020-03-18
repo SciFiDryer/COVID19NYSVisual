@@ -22,13 +22,7 @@ for (i = 0; i < counties.features.length; i++)
 	var properties = generateProperties(counties.features[i].properties.NAME);
 	var theStyle = {"color" : properties.color, "weight" : 0};
 	var marker = L.geoJSON(counties.features[i], {style: theStyle});
-	marker.bindPopup(properties.popupContent);
-	marker.on("mouseover", function(e){
-			this.openPopup();
-	});
-	marker.on("mouseout", function(e){
-			this.closePopup();
-	});
+	marker.bindTooltip(properties.popupContent);
 	marker.addTo(map)
 	
 }
